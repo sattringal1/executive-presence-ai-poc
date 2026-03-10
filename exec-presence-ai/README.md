@@ -1,3 +1,12 @@
+# exec-presence-ai
+
+This folder contains the Vite React app for the Executive Presence AI PoC.
+
+Live demo (GitHub Pages): https://sattringal1.github.io/executive-presence-ai-poc/
+
+Local development:
+
+- `cd exec-presence-ai && npm run dev` — open http://localhost:5173/executive-presence-ai-poc/
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
