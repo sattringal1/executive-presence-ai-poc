@@ -295,13 +295,49 @@ function App() {
                 {isSidebarCollapsed ? '»' : '«'}
               </button>
             </div>
-            <button data-icon="📊" aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')} title="Dashboard Overview"><span className="label">Dashboard Overview</span></button>
-            <button data-icon="🎯" aria-label="Alignment Map" className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')} title="Alignment Map"><span className="label">Alignment Map</span></button>
-            <button data-icon="📝" aria-label="Meeting Prep Brief" className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')} title="Meeting Prep Brief"><span className="label">Meeting Prep Brief</span></button>
-            <button data-icon="✅" aria-label="Meeting Analysis" className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')} title="Meeting Analysis"><span className="label">Meeting Analysis</span></button>
-            <button data-icon="🗣️" aria-label="Executive Builder" className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')} title="Executive Builder"><span className="label">Executive Builder</span></button>
+            <button aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')} title="Dashboard Overview">
+              <span className="nav-icon" aria-hidden="true"> 
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="8" height="8" rx="1" fill="currentColor"/><rect x="13" y="3" width="8" height="8" rx="1" fill="currentColor"/><rect x="3" y="13" width="8" height="8" rx="1" fill="currentColor"/><rect x="13" y="13" width="8" height="8" rx="1" fill="currentColor"/></svg>
+              </span>
+              <span className="label">Dashboard Overview</span>
+              <span className="tooltip">Dashboard Overview</span>
+            </button>
+            <button aria-label="Alignment Map" className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')} title="Alignment Map">
+              <span className="nav-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L15 8H9L12 2Z" fill="currentColor"/><path d="M12 22L9 16H15L12 22Z" fill="currentColor"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+              </span>
+              <span className="label">Alignment Map</span>
+              <span className="tooltip">Alignment Map</span>
+            </button>
+            <button aria-label="Meeting Prep Brief" className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')} title="Meeting Prep Brief">
+              <span className="nav-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 7H21V9H3V7Z" fill="currentColor"/><path d="M3 11H21V13H3V11Z" fill="currentColor"/><path d="M3 15H15V17H3V15Z" fill="currentColor"/></svg>
+              </span>
+              <span className="label">Meeting Prep Brief</span>
+              <span className="tooltip">Meeting Prep Brief</span>
+            </button>
+            <button aria-label="Meeting Analysis" className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')} title="Meeting Analysis">
+              <span className="nav-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3V21H21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M7 14L11 10L15 14L19 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+              <span className="label">Meeting Analysis</span>
+              <span className="tooltip">Meeting Analysis</span>
+            </button>
+            <button aria-label="Executive Builder" className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')} title="Executive Builder">
+              <span className="nav-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" fill="currentColor"/><path d="M19 22C19 17.5817 15.4183 14 11 14H13C8.58172 14 5 17.5817 5 22" fill="currentColor"/></svg>
+              </span>
+              <span className="label">Executive Builder</span>
+              <span className="tooltip">Executive Builder</span>
+            </button>
             <div style={{ flex: 1, minHeight: '20px' }}></div>
-            <button data-icon="ℹ️" aria-label="About Product" className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }} title="About Product"><span className="label">About Product</span></button>
+            <button aria-label="About Product" className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }} title="About Product">
+              <span className="nav-icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2"/><path d="M12 16V12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/><path d="M12 8H12.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </span>
+              <span className="label">About Product</span>
+              <span className="tooltip">About Product</span>
+            </button>
           </nav>
         )}
 

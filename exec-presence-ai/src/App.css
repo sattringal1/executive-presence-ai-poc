@@ -535,8 +535,32 @@ body {
 .sidebar.collapsed { width: 72px; }
 .sidebar.collapsed .nav-item { padding: 8px 6px; text-align: center; border-left: none; }
 .sidebar.collapsed .nav-item .label { display: none; }
-.sidebar.collapsed .nav-item::before { content: attr(data-icon); display: block; font-size: 18px; margin-bottom: 6px; }
+.sidebar.collapsed .nav-item::before { content: none; }
+.nav-icon { display: none; color: var(--primary); }
+.sidebar.collapsed .nav-icon { display: block; margin: 0 auto 6px auto; }
 .sidebar.collapsed .nav-item.active { border-left: none; box-shadow: none; background: transparent; }
+
+/* Tooltip shown when collapsed */
+.nav-item { position: relative; }
+.tooltip {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(11,35,66,0.95);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  margin-left: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+  z-index: 50;
+}
+.sidebar.collapsed .nav-item:hover .tooltip, .sidebar.collapsed .nav-item:focus-within .tooltip {
+  display: block;
+}
 
 /* Slight spacing adjustment when sidebar collapsed to give main area room */
 .app-container.desktop-layout .main-content { padding-left: clamp(12px, 3vw, 24px); }
