@@ -529,6 +529,18 @@ body {
   font-size: 13px;
 }
 
+/* Collapsible Sidebar Styles */
+.sidebar-top { display: flex; justify-content: flex-end; }
+.collapse-btn { background: none; border: none; color: var(--primary); cursor: pointer; font-size: 16px; padding: 6px; border-radius: 6px; }
+.sidebar.collapsed { width: 72px; }
+.sidebar.collapsed .nav-item { padding: 8px 6px; text-align: center; border-left: none; }
+.sidebar.collapsed .nav-item .label { display: none; }
+.sidebar.collapsed .nav-item::before { content: attr(data-icon); display: block; font-size: 18px; margin-bottom: 6px; }
+.sidebar.collapsed .nav-item.active { border-left: none; box-shadow: none; background: transparent; }
+
+/* Slight spacing adjustment when sidebar collapsed to give main area room */
+.app-container.desktop-layout .main-content { padding-left: clamp(12px, 3vw, 24px); }
+
 .timeline-note {
   margin: 0;
   color: var(--text-muted);
