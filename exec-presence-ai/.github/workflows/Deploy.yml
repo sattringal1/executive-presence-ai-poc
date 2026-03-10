@@ -1,9 +1,9 @@
 name: Deploy React App to GitHub Pages
 
 on:
-  # Runs on pushes targeting the main branch
+  # Runs on pushes targeting the main or executive-presence-ai-poc branch
   push:
-    branches: ["main"] # Change to "master" if your default branch is master
+    branches: ["main", "executive-presence-ai-poc"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -34,16 +34,16 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm ci
+        run: cd exec-presence-ai && npm ci
         
       - name: Build project
-        run: npm run build
+        run: cd exec-presence-ai && npm run build
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Vite outputs the build to the 'dist' folder by default
-          path: './dist'
+          path: './exec-presence-ai/dist'
 
   # Deployment job
   deploy:
