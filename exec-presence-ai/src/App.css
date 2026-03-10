@@ -541,6 +541,25 @@ body {
 /* Slight spacing adjustment when sidebar collapsed to give main area room */
 .app-container.desktop-layout .main-content { padding-left: clamp(12px, 3vw, 24px); }
 
+/* Focus and accessibility improvements */
+.nav-item:focus-visible, .collapse-btn:focus-visible, .mobile-menu-btn:focus-visible {
+  outline: 3px solid rgba(42,117,211,0.16);
+  outline-offset: 2px;
+}
+
+/* Ensure labels remain accessible to screen readers when hidden visually */
+.sidebar.collapsed .label {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .timeline-note {
   margin: 0;
   color: var(--text-muted);

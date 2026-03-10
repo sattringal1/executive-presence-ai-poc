@@ -284,19 +284,24 @@ function App() {
         
         {/* Desktop Sidebar (hidden on mobile) */}
         {!isMobile && (
-          <nav className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`}>
+          <nav className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`} role="navigation" aria-label="Primary navigation">
             <div className="sidebar-top">
-              <button className="collapse-btn" onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)} aria-label="Toggle sidebar">
+              <button
+                className="collapse-btn"
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                aria-expanded={!isSidebarCollapsed}
+              >
                 {isSidebarCollapsed ? '»' : '«'}
               </button>
             </div>
-            <button data-icon="📊" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')} title="Dashboard Overview"><span className="label">Dashboard Overview</span></button>
-            <button data-icon="🎯" className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')} title="Alignment Map"><span className="label">Alignment Map</span></button>
-            <button data-icon="📝" className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')} title="Meeting Prep Brief"><span className="label">Meeting Prep Brief</span></button>
-            <button data-icon="✅" className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')} title="Meeting Analysis"><span className="label">Meeting Analysis</span></button>
-            <button data-icon="🗣️" className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')} title="Executive Builder"><span className="label">Executive Builder</span></button>
+            <button data-icon="📊" aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')} title="Dashboard Overview"><span className="label">Dashboard Overview</span></button>
+            <button data-icon="🎯" aria-label="Alignment Map" className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')} title="Alignment Map"><span className="label">Alignment Map</span></button>
+            <button data-icon="📝" aria-label="Meeting Prep Brief" className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')} title="Meeting Prep Brief"><span className="label">Meeting Prep Brief</span></button>
+            <button data-icon="✅" aria-label="Meeting Analysis" className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')} title="Meeting Analysis"><span className="label">Meeting Analysis</span></button>
+            <button data-icon="🗣️" aria-label="Executive Builder" className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')} title="Executive Builder"><span className="label">Executive Builder</span></button>
             <div style={{ flex: 1, minHeight: '20px' }}></div>
-            <button data-icon="ℹ️" className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }} title="About Product"><span className="label">About Product</span></button>
+            <button data-icon="ℹ️" aria-label="About Product" className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }} title="About Product"><span className="label">About Product</span></button>
           </nav>
         )}
 
