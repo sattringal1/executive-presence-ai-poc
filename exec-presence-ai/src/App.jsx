@@ -1,6 +1,28 @@
 import React, { useState } from 'react';
 import './App.css';
 
+// --- Modal Component ---
+const Modal = ({ isOpen, onClose, title, children }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2>{title}</h2>
+          <button className="modal-close" onClick={onClose} aria-label="Close modal">×</button>
+        </div>
+        <div className="modal-body">
+          {children}
+        </div>
+        <div className="modal-footer">
+          <button className="btn" onClick={onClose}>Got it</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- Sub-Components for each Tab ---
 
 const DashboardOverview = () => (
@@ -205,6 +227,7 @@ function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+  const [showSyncModal, setShowSyncModal] = useState(false);
 
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -212,6 +235,7 @@ function App() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Device type detection
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
 
@@ -286,7 +310,7 @@ function App() {
               </div>
             )}
             {!isMobile && <h2>Welcome back, Subbu</h2>}
-            <button className="btn btn-outline">Sync Graph API</button>
+            <button className="btn btn-outline" onClick={() => setShowSyncModal(true)}>Sync Graph API</button>
           </div>
           
           {/* Dynamic Render based on State */}
@@ -308,6 +332,45 @@ function App() {
           </div>
         )}
       </div>
+
+      {/* Modal for Sync Graph API Feature */}
+      <Modal 
+        isOpen={showSyncModal} 
+        onClose={() => setShowSyncModal(false)}
+        title="Sync Graph API"
+      >
+        <div className="sync-modal-content">
+          <div className="feature-status">
+            <div className="status-icon">🚀</div>
+            <h3>Feature Under Construction</h3>
+          </div>
+          <p className="feature-description">
+            The <strong>Sync Graph API</strong> feature is currently under development and will be available soon.
+          </p>
+          <div className="feature-details">
+            <h4>What This Feature Will Do:</h4>
+            <ul className="feature-list">
+              <li>
+                <strong>Capture User API Information:</strong> Securely collect your Microsoft Graph API credentials
+              </li>
+              <li>
+                <strong>Token Tracking:</strong> Monitor and track API token usage for audit and compliance
+              </li>
+              <li>
+                <strong>Real-time Sync:</strong> Keep your leadership data synchronized with Microsoft 365 services
+              </li>
+              <li>
+                <strong>Enhanced Analytics:</strong> Enable advanced AI coaching based on your communication patterns
+              </li>
+            </ul>
+          </div>
+          <div className="feature-timeline">
+            <p className="timeline-note">
+              <em>Expected Availability:</em> Coming in the next product release. We're working hard to make this seamless and secure.
+            </p>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }
