@@ -126,3 +126,78 @@ ul.profile-list li { margin-bottom: 6px; }
   .score-card-container { flex-direction: column; }
   .top-banner h1 { font-size: 20px; }
 }
+/* =========================================
+   MOBILE RESPONSIVENESS (FORCE Overrides)
+   ========================================= */
+@media screen and (max-width: 768px) {
+  /* 1. Stack the layout vertically */
+  .app-container { 
+    display: flex; 
+    flex-direction: column; 
+    width: 100%;
+  }
+
+  /* 2. Transform sidebar into a horizontal swipeable menu */
+  .sidebar { 
+    width: 100%; 
+    max-width: 100vw;
+    height: auto;
+    padding: 10px; 
+    border-right: none; 
+    border-bottom: 1px solid #E1EDF8;
+    display: flex; 
+    flex-direction: row; 
+    overflow-x: auto; 
+    white-space: nowrap; 
+    box-sizing: border-box;
+    /* Hide scrollbar for a cleaner look */
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+  }
+  .sidebar::-webkit-scrollbar { 
+    display: none; 
+  }
+
+  /* 3. Adjust navigation buttons to sit side-by-side */
+  .nav-item { 
+    flex: 0 0 auto; /* Prevents text from squishing */
+    width: auto; 
+    margin-right: 10px; 
+    margin-bottom: 0;
+    border-left: none !important; 
+    border-bottom: 3px solid transparent; 
+    border-radius: 6px; 
+    text-align: center;
+  }
+  .nav-item.active { 
+    border-left: none !important; 
+    border-bottom: 3px solid var(--primary) !important; 
+  }
+
+  /* 4. Ensure main content fits the screen */
+  .main-content { 
+    width: 100%; 
+    padding: 15px; 
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  /* 5. Force score cards to stack vertically */
+  .score-card-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+  }
+  .card { 
+    width: 100%; 
+    min-width: auto;
+    box-sizing: border-box; 
+  }
+
+  /* 6. Fix header wrapping */
+  .header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}
