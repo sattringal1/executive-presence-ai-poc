@@ -228,6 +228,8 @@ function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const [showSyncModal, setShowSyncModal] = useState(false);
+  const [apiToken, setApiToken] = useState('');
+  const [tokenMessage, setTokenMessage] = useState('');
 
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -295,6 +297,24 @@ function App() {
         {/* Main Content Area */}
         <main className="main-content">
           <div className="header-top">
+            {/* Desktop/Tablet: quick nav select */}
+            {!isMobile && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <select
+                  className="nav-select"
+                  value={activeTab}
+                  onChange={(e) => handleTabChange(e.target.value)}
+                  aria-label="Quick navigation"
+                >
+                  <option value="dashboard">Dashboard Overview</option>
+                  <option value="alignment">Alignment Map</option>
+                  <option value="meeting-prep">Meeting Prep Brief</option>
+                  <option value="meeting-eval">Meeting Analysis</option>
+                  <option value="agenda">Executive Builder</option>
+                  <option value="about">About Product</option>
+                </select>
+              </div>
+            )}
             {isMobile && (
               <div className="mobile-header">
                 <button 
@@ -363,6 +383,32 @@ function App() {
                 <strong>Enhanced Analytics:</strong> Enable advanced AI coaching based on your communication patterns
               </li>
             </ul>
+          </div>
+          <div style={{ marginTop: 14 }}>
+            <label style={{ display: 'block', fontWeight: 700, marginBottom: 8 }}>Enter API Token (optional)</label>
+            <input
+              className="api-input"
+              type="text"
+              placeholder="Paste your API token here (for Models consumption)"
+              value={apiToken}
+              onChange={(e) => { setApiToken(e.target.value); setTokenMessage(''); }}
+              aria-label="API token input"
+            />
+            <div style={{ display: 'flex', gap: 8, marginTop: 10, alignItems: 'center' }}>
+              <button
+                className="btn"
+                onClick={() => {
+                  // Simulate capture but keep feature flagged as under construction
+                  if (apiToken && apiToken.trim().length > 0) {
+                    setTokenMessage('Feature under construction — token captured locally for demo.');
+                  } else {
+                    setTokenMessage('Feature under construction — no token provided.');
+                  }
+                }}
+              >Save Token</button>
+              <button className="btn btn-outline" onClick={() => { setApiToken(''); setTokenMessage(''); }}>Clear</button>
+            </div>
+            {tokenMessage && <div className="save-note">{tokenMessage}</div>}
           </div>
           <div className="feature-timeline">
             <p className="timeline-note">
