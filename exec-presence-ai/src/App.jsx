@@ -203,6 +203,17 @@ const AboutProduct = () => (
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const isMobile = windowWidth <= 768;
+  const isTablet = windowWidth > 768 && windowWidth <= 1024;
 
   const renderContent = () => {
     switch (activeTab) {
@@ -216,8 +227,15 @@ function App() {
     }
   };
 
+  const handleTabChange = (tabName) => {
+    setActiveTab(tabName);
+    if (isMobile) {
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
-    <div>
+    <div className="app-wrapper">
       {/* Top Banner */}
       <header className="top-banner">
         <div className="banner-logo">
@@ -235,23 +253,39 @@ function App() {
       </header>
 
       {/* App Layout */}
-      <div className="app-container">
+      <div className={`app-container ${isMobile ? 'mobile-layout' : isTablet ? 'tablet-layout' : 'desktop-layout'}`}>
         
-        {/* Sidebar */}
-        <nav className="sidebar">
-          <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => setActiveTab('dashboard')}>Dashboard Overview</button>
-          <button className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => setActiveTab('alignment')}>Alignment Map</button>
-          <button className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => setActiveTab('meeting-prep')}>Meeting Prep Brief</button>
-          <button className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => setActiveTab('meeting-eval')}>Meeting Analysis</button>
-          <button className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => setActiveTab('agenda')}>Executive Builder</button>
-          <div style={{ flex: 1, minHeight: '20px' }}></div> {/* Spacer for desktop */}
-          <button className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => setActiveTab('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }}>About Product</button>
-        </nav>
+        {/* Desktop Sidebar (hidden on mobile) */}
+        {!isMobile && (
+          <nav className="sidebar">
+            <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>Dashboard Overview</button>
+            <button className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')}>Alignment Map</button>
+            <button className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')}>Meeting Prep Brief</button>
+            <button className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')}>Meeting Analysis</button>
+            <button className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')}>Executive Builder</button>
+            <div style={{ flex: 1, minHeight: '20px' }}></div>
+            <button className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')} style={{ borderTop: '1px solid #E1EDF8', borderRadius: 0 }}>About Product</button>
+          </nav>
+        )}
 
         {/* Main Content Area */}
         <main className="main-content">
           <div className="header-top">
-            <h2>Welcome back, Subbu</h2>
+            {isMobile && (
+              <div className="mobile-header">
+                <button 
+                  className={`mobile-menu-btn ${isMobileMenuOpen ? 'open' : ''}`} 
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  aria-label="Toggle menu"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+                <h2>Welcome back, Subbu</h2>
+              </div>
+            )}
+            {!isMobile && <h2>Welcome back, Subbu</h2>}
             <button className="btn btn-outline">Sync Graph API</button>
           </div>
           
@@ -259,6 +293,20 @@ function App() {
           {renderContent()}
           
         </main>
+
+        {/* Mobile Menu Dropdown */}
+        {isMobile && isMobileMenuOpen && (
+          <div className="mobile-menu-dropdown">
+            <nav className="mobile-nav">
+              <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>📊 Dashboard Overview</button>
+              <button className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')}>🎯 Alignment Map</button>
+              <button className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')}>📝 Meeting Prep Brief</button>
+              <button className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')}>✅ Meeting Analysis</button>
+              <button className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')}>🗣️ Executive Builder</button>
+              <button className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')}>ℹ️ About Product</button>
+            </nav>
+          </div>
+        )}
       </div>
     </div>
   );
