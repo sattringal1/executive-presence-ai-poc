@@ -143,11 +143,11 @@ const MeetingPrep = () => (
       <h3 style={{ color: 'var(--primary)', fontSize: '18px' }}>Upcoming: Architecture Review (2:00 PM)</h3>
       <p><strong>Stakeholder Insights (Level 3 Decision Makers)</strong></p>
       <ul className="profile-list">
-        <li><strong>Sarah Jenkins (VP of Eng):</strong> Prioritizing cost-optimization. Recent town hall focused on "doing more with less."</li>
-        <li><strong>David Chen (CPO):</strong> Highly focused on cross-functional alignment right now.</li>
+        <li><strong>Akila Attringa (VP of Eng):</strong> Prioritizing cost-optimization. Recent town hall focused on "doing more with less."</li>
+        <li><strong>Arun Moxic Arputham (CPO):</strong> Highly focused on cross-functional alignment right now.</li>
       </ul>
       <hr style={{ border: 0, borderTop: '1px solid #E1EDF8', margin: '20px 0' }} />
-      <p><strong>💡 AI Prep Brief:</strong> You have an opportunity to show future-leader potential today. Don't just list what you built; explain <em>why it matters</em>. Frame your updates around Sarah's cost-optimization goals.</p>
+      <p><strong>💡 AI Prep Brief:</strong> You have an opportunity to show future-leader potential today. Don't just list what you built; explain <em>why it matters</em>. Frame your updates around Akila's cost-optimization goals.</p>
       <button className="btn" onClick={() => alert('Generating specific talking points...')}>Generate Talking Points</button>
     </div>
   </div>
