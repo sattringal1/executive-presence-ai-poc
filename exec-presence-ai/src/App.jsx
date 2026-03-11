@@ -143,7 +143,7 @@ const MeetingPrep = () => (
       <h3 style={{ color: 'var(--primary)', fontSize: '18px' }}>Upcoming: Architecture Review (2:00 PM)</h3>
       <p><strong>Stakeholder Insights (Level 3 Decision Makers)</strong></p>
       <ul className="profile-list">
-        <li><strong>Akila Attringa (VP of Eng):</strong> Prioritizing cost-optimization. Recent town hall focused on "doing more with less."</li>
+        <li><strong>Akila Attringal (VP of Engg):</strong> Prioritizing cost-optimization. Recent town hall focused on "doing more with less."</li>
         <li><strong>Arun Moxic Arputham (CPO):</strong> Highly focused on cross-functional alignment right now.</li>
       </ul>
       <hr style={{ border: 0, borderTop: '1px solid #E1EDF8', margin: '20px 0' }} />
