@@ -571,6 +571,64 @@ body {
   outline-offset: 2px;
 }
 
+/* Peek button shown when sidebar is collapsed */
+.peek-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Overlay that appears when user clicks the 4-dot peek button */
+.sidebar-peek-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  z-index: 1200;
+  pointer-events: none;
+}
+
+.sidebar-peek-content {
+  width: 280px;
+  background: white;
+  border-right: 1px solid #E1EDF8;
+  box-shadow: 0 12px 30px rgba(6,21,41,0.12);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: auto;
+  animation: slideIn 180ms ease-out;
+}
+
+.peek-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 20px;
+  line-height: 1;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.sidebar-peek-backdrop {
+  flex: 1 1 auto;
+  background: rgba(11,35,66,0.06);
+  pointer-events: auto;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-8px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
 /* Ensure labels remain accessible to screen readers when hidden visually */
 .sidebar.collapsed .label {
   position: absolute !important;

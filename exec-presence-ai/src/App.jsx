@@ -214,8 +214,31 @@ const AboutProduct = () => (
        <div style={{ background: 'var(--primary)', color: 'white', width: '60px', height: '60px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px', fontWeight: 'bold' }}>SA</div>
        <div style={{ flex: 1 }}>
          <h4 style={{ margin: '0 0 5px 0', color: 'var(--gradient-start)', fontSize: '18px' }}>Subramonian Attringal</h4>
-         <p style={{ fontStyle: 'italic', color: 'var(--primary)', margin: '0 0 10px 0', fontSize: '14px' }}>Senior Enterprise Architect | Engineering Leader | AI Innovator</p>
-         <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.6 }}>A seasoned architect of both software systems and engineering teams. Passionate about innovation at the intersection of complex cloud architecture and human dynamics, he developed Executive Presence AI to help the next generation of technical leaders find their authentic voice.</p>
+         <p style={{ fontStyle: 'italic', color: 'var(--primary)', margin: '0 0 10px 0', fontSize: '14px' }}>Founder | Enterprise Architect | AI & Leadership Systems Builder</p>
+         <div style={{ margin: 0, color: 'var(--text-muted)', fontSize: '14px', lineHeight: 1.6 }}>
+           <p>For more than a decade, Subramonian Attringal has operated at the intersection of enterprise technology, AI innovation, and leadership transformation. As an architect of complex cloud platforms and large-scale engineering programs, he has worked closely with executives, engineering leaders, and global teams to turn ambitious ideas into scalable systems.</p>
+
+           <p>Along that journey, he repeatedly observed a surprising pattern: many brilliant technical leaders struggled not because they lacked expertise, but because they lacked a structured way to develop executive presence.</p>
+
+           <p>Great engineers often had the right ideas—but the wrong moment, the wrong framing, or the wrong communication signal could cause those ideas to be overlooked in executive conversations.</p>
+
+           <p>That observation sparked a question:</p>
+           <blockquote style={{ margin: '6px 0 12px 0', paddingLeft: '12px', borderLeft: '3px solid var(--primary)', color: 'var(--text-dark)' }}>What if executive presence could be taught, measured, and improved using AI—just like we optimize systems and software?</blockquote>
+
+           <p>From that question, Executive Presence AI was born.</p>
+
+           <p>Executive Presence AI is designed to help technical professionals—engineers, architects, program managers, and emerging leaders—develop the communication signals that senior leadership responds to: clarity, confidence, credibility, and influence. The platform combines AI insights, behavioral feedback, and contextual coaching to help leaders strengthen their voice in the moments that matter most: executive meetings, strategic decisions, and cross-organizational leadership.</p>
+
+           <p>Subramonian’s vision is simple yet ambitious: to build a system that helps the next generation of technology leaders communicate with the same precision and confidence with which they build technology.</p>
+
+           <p>Like any meaningful innovation, the journey behind Executive Presence AI has been shaped by collaboration and support from an incredible network of mentors, colleagues, and family. Subramonian extends his deepest appreciation to Raghavan Sivakumar, whose thoughtful product feature consultations, strategic perspective, and continuous guidance played a pivotal role in shaping the vision and capabilities of Executive Presence AI. His insights helped translate an early concept into a structured and impactful platform.</p>
+
+           <p>He is also sincerely grateful to Meenakshi Raghavan for her meaningful contributions toward refining the product’s user interface, ensuring clarity, usability, and elegance in the platform’s design. Special thanks are extended to Akila Attringal for her insightful perspectives on user experience, which helped shape a more intuitive and engaging interaction model for end users.</p>
+
+           <p>Subramonian also appreciates Hari Srinivasan and Narayan Iyer for their valuable insights and ongoing support, which helped ground the product in real-world leadership contexts and practical user perspectives.</p>
+
+           <p>Together, their encouragement, ideas, and thoughtful feedback helped transform Executive Presence AI from an initial vision into a platform designed to empower the next generation of technical leaders.</p>
+         </div>
        </div>
     </div>
   </div>
@@ -229,6 +252,7 @@ function App() {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarPeek, setIsSidebarPeek] = useState(false);
   const [apiToken, setApiToken] = useState('');
   const [tokenMessage, setTokenMessage] = useState('');
 
@@ -237,6 +261,17 @@ function App() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // close peek if sidebar becomes expanded or user presses Escape
+  React.useEffect(() => {
+    if (!isSidebarCollapsed && isSidebarPeek) setIsSidebarPeek(false);
+  }, [isSidebarCollapsed]);
+
+  React.useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape' && isSidebarPeek) setIsSidebarPeek(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isSidebarPeek]);
 
   // Device type detection
   const isMobile = windowWidth <= 768;
@@ -259,6 +294,8 @@ function App() {
     if (isMobile) {
       setIsMobileMenuOpen(false);
     }
+    // close any temporary peek overlay when a tab is chosen
+    if (isSidebarPeek) setIsSidebarPeek(false);
   };
 
   return (
@@ -286,14 +323,30 @@ function App() {
         {!isMobile && (
           <nav className={`sidebar ${isSidebarCollapsed ? 'collapsed' : ''}`} role="navigation" aria-label="Primary navigation">
             <div className="sidebar-top">
-              <button
-                className="collapse-btn"
-                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-                aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                aria-expanded={!isSidebarCollapsed}
-              >
-                {isSidebarCollapsed ? '»' : '«'}
-              </button>
+              {!isSidebarCollapsed ? (
+                <button
+                  className="collapse-btn"
+                  onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                  aria-label={isSidebarCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                  aria-expanded={!isSidebarCollapsed}
+                >
+                  {isSidebarCollapsed ? '»' : '«'}
+                </button>
+              ) : (
+                <button
+                  className="peek-btn"
+                  onClick={() => setIsSidebarPeek(!isSidebarPeek)}
+                  aria-label={isSidebarPeek ? 'Close navigation' : 'Open navigation'}
+                  aria-expanded={isSidebarPeek}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="3" y="3" width="6" height="6" rx="1" fill="currentColor"/>
+                    <rect x="15" y="3" width="6" height="6" rx="1" fill="currentColor"/>
+                    <rect x="3" y="15" width="6" height="6" rx="1" fill="currentColor"/>
+                    <rect x="15" y="15" width="6" height="6" rx="1" fill="currentColor"/>
+                  </svg>
+                </button>
+              )}
             </div>
             <button aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')} title="Dashboard Overview">
               <span className="nav-icon" aria-hidden="true"> 
