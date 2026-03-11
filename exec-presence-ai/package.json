@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "predeploy": "npm run build",
+    "predeploy": "node ../scripts/write-version.js && npm run build",
     "deploy": "gh-pages -d dist",
     "preview": "vite preview"
   },
