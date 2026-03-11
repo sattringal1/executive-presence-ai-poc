@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 
 // --- Modal Component ---
@@ -253,6 +253,7 @@ function App() {
   const [showSyncModal, setShowSyncModal] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isSidebarPeek, setIsSidebarPeek] = useState(false);
+  const peekRef = useRef(null);
   const [apiToken, setApiToken] = useState('');
   const [tokenMessage, setTokenMessage] = useState('');
 
@@ -271,6 +272,55 @@ function App() {
     const onKey = (e) => { if (e.key === 'Escape' && isSidebarPeek) setIsSidebarPeek(false); };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+  }, [isSidebarPeek]);
+
+  // Focus-trap for peek overlay
+  useEffect(() => {
+    if (!isSidebarPeek) return;
+    const prevActive = document.activeElement;
+    const container = peekRef.current;
+    if (!container) return;
+    const selector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusables = Array.from(container.querySelectorAll(selector)).filter(el => !el.hasAttribute('disabled'));
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    // hide main content from assistive tech while overlay is open
+    const main = document.querySelector('main.main-content');
+    if (main) main.setAttribute('aria-hidden', 'true');
+
+    const onKey = (e) => {
+      if (e.key === 'Tab') {
+        if (focusables.length === 0) {
+          e.preventDefault();
+          return;
+        }
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+      if (e.key === 'Escape') {
+        setIsSidebarPeek(false);
+      }
+    };
+
+    document.addEventListener('keydown', onKey);
+    // focus first element (close button)
+    if (first) first.focus();
+
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      if (main) main.removeAttribute('aria-hidden');
+      if (prevActive && prevActive.focus) prevActive.focus();
+    };
   }, [isSidebarPeek]);
 
   // Device type detection
@@ -396,7 +446,7 @@ function App() {
 
         {/* Render peek overlay outside the sidebar conditional so it's safe */}
         {isSidebarCollapsed && isSidebarPeek && (
-          <div className="sidebar-peek-overlay" role="dialog" aria-modal="true" aria-label="Expanded navigation">
+          <div ref={peekRef} className="sidebar-peek-overlay" role="dialog" aria-modal="true" aria-label="Expanded navigation">
             <div className="sidebar-peek-content">
               <button className="peek-close" onClick={() => setIsSidebarPeek(false)} aria-label="Close navigation">×</button>
               <button aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>
