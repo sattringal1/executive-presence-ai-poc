@@ -21,6 +21,7 @@ html, body, #root {
   padding: 0;
   height: 100%;
   width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -29,6 +30,7 @@ body {
   background-color: var(--bg-page);
   color: var(--text-dark);
   overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
 }
 
 /* Top Banner */
@@ -164,7 +166,7 @@ body {
 
 /* Mobile Menu Dropdown */
 .mobile-menu-dropdown {
-  position: absolute; /* now relative to header-top */
+  position: absolute;
   top: 100%;
   left: 0;
   right: 0;
@@ -175,17 +177,31 @@ body {
   z-index: 999;
   display: flex;
   flex-direction: column;
-  animation: slideDown 0.3s ease;
+  animation: slideDown 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  -webkit-overflow-scrolling: touch;
 }
 
 @keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-15px);
+    max-height: 0;
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    max-height: calc(100vh - 200px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 
@@ -201,9 +217,13 @@ body {
   border: none;
   border-bottom: 1px solid #E1EDF8;
   border-radius: 0;
-  padding: 15px;
+  padding: 14px;
   margin: 0;
   font-size: 15px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  touch-action: manipulation;
 }
 
 .mobile-menu-dropdown .nav-item:last-child {
@@ -229,8 +249,10 @@ body {
   flex: 1; 
   padding: clamp(12px, 4vw, 40px); 
   overflow-y: auto; 
+  overflow-x: hidden;
   animation: fadeIn 0.4s ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn { 
@@ -953,6 +975,8 @@ ul.profile-list li {
 @media screen and (min-width: 481px) and (max-width: 767px) {
   .app-container {
     flex-direction: column;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .sidebar {
@@ -966,13 +990,15 @@ ul.profile-list li {
   .main-content {
     flex: 1;
     width: 100%;
-    padding: 16px;
+    padding: 15px;
     overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .header-top {
     flex-direction: column;
     gap: 12px;
+    width: 100%;
   }
 
   .mobile-header {
@@ -993,23 +1019,30 @@ ul.profile-list li {
 
   .btn {
     width: 100%;
-    padding: 11px;
+    padding: 12px 14px;
     border-radius: 8px;
     font-size: 14px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .btn-outline {
-    width: auto;
+    width: 100%;
   }
 
   .score-card-container {
     flex-direction: column;
-    gap: 14px;
+    gap: 13px;
+    width: 100%;
   }
 
   .card {
     width: 100%;
-    padding: 16px;
+    padding: 14px;
+    box-sizing: border-box;
   }
 
   .card h3 {
@@ -1097,11 +1130,13 @@ ul.profile-list li {
 @media screen and (max-width: 480px) {
   html, body, #root {
     overflow-x: hidden;
+    width: 100%;
   }
 
   .app-container {
     flex-direction: column;
     width: 100%;
+    overflow-x: hidden;
   }
 
   .sidebar {
@@ -1115,14 +1150,16 @@ ul.profile-list li {
   .main-content {
     flex: 1;
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .header-top {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 18px;
+    width: 100%;
   }
 
   .mobile-header {
@@ -1146,6 +1183,61 @@ ul.profile-list li {
   .mobile-menu-btn span {
     width: 22px;
     height: 2.5px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 11px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  .btn-outline {
+    width: 100%;
+  }
+
+  .score-card-container {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 18px;
+    width: 100%;
+  }
+
+  .card {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .card h3 {
+    font-size: 14px;
+    margin-top: 0;
+    padding-bottom: 8px;
+  }
+
+  .score {
+    font-size: 28px;
+    margin: 8px 0;
+  }
+
+  .trend-up {
+    font-size: 12px;
+  }
+
+  .top-banner {
+    padding: 12px 10px;
+  }
+
+  .top-banner h1 {
+    font-size: 16px;
+    margin: 0;
+    letter-spacing: 0;
   }
 
   .header-top h2 {
