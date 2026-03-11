@@ -507,26 +507,25 @@ function App() {
             )}
             {!isMobile && <h2>Welcome back, Subbu</h2>}
             <button className="btn btn-outline" onClick={() => setShowSyncModal(true)}>Sync Graph API</button>
+            {/* mobile dropdown anchored inside header-top so absolute positioning works */}
+            {isMobile && isMobileMenuOpen && (
+              <div className="mobile-menu-dropdown">
+                <nav className="mobile-nav">
+                  <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>📊 Dashboard Overview</button>
+                  <button className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')}>🎯 Alignment Map</button>
+                  <button className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')}>📝 Meeting Prep Brief</button>
+                  <button className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')}>✅ Meeting Analysis</button>
+                  <button className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')}>🗣️ Executive Builder</button>
+                  <button className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')}>ℹ️ About Product</button>
+                </nav>
+              </div>
+            )}
           </div>
-          
+
           {/* Dynamic Render based on State */}
           {renderContent()}
-          
-        </main>
 
-        {/* Mobile Menu Dropdown */}
-        {isMobile && isMobileMenuOpen && (
-          <div className="mobile-menu-dropdown">
-            <nav className="mobile-nav">
-              <button className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>📊 Dashboard Overview</button>
-              <button className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')}>🎯 Alignment Map</button>
-              <button className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')}>📝 Meeting Prep Brief</button>
-              <button className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')}>✅ Meeting Analysis</button>
-              <button className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')}>🗣️ Executive Builder</button>
-              <button className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')}>ℹ️ About Product</button>
-            </nav>
-          </div>
-        )}
+        </main>
       </div>
 
       {/* Modal for Sync Graph API Feature */}

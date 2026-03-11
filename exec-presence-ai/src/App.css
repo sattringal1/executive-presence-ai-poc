@@ -164,7 +164,7 @@ body {
 
 /* Mobile Menu Dropdown */
 .mobile-menu-dropdown {
-  position: absolute;
+  position: absolute; /* now relative to header-top */
   top: 100%;
   left: 0;
   right: 0;
@@ -239,6 +239,7 @@ body {
 }
 
 .header-top { 
+  position: relative; /* enable absolute children like the mobile dropdown */
   display: flex; 
   justify-content: space-between; 
   align-items: center; 
