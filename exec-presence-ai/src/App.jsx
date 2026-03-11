@@ -394,6 +394,40 @@ function App() {
           </nav>
         )}
 
+        {/* Render peek overlay outside the sidebar conditional so it's safe */}
+        {isSidebarCollapsed && isSidebarPeek && (
+          <div className="sidebar-peek-overlay" role="dialog" aria-modal="true" aria-label="Expanded navigation">
+            <div className="sidebar-peek-content">
+              <button className="peek-close" onClick={() => setIsSidebarPeek(false)} aria-label="Close navigation">×</button>
+              <button aria-label="Dashboard Overview" className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`} onClick={() => handleTabChange('dashboard')}>
+                <span className="nav-icon">📊</span>
+                <span className="label">Dashboard Overview</span>
+              </button>
+              <button aria-label="Alignment Map" className={`nav-item ${activeTab === 'alignment' ? 'active' : ''}`} onClick={() => handleTabChange('alignment')}>
+                <span className="nav-icon">🎯</span>
+                <span className="label">Alignment Map</span>
+              </button>
+              <button aria-label="Meeting Prep Brief" className={`nav-item ${activeTab === 'meeting-prep' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-prep')}>
+                <span className="nav-icon">📝</span>
+                <span className="label">Meeting Prep Brief</span>
+              </button>
+              <button aria-label="Meeting Analysis" className={`nav-item ${activeTab === 'meeting-eval' ? 'active' : ''}`} onClick={() => handleTabChange('meeting-eval')}>
+                <span className="nav-icon">✅</span>
+                <span className="label">Meeting Analysis</span>
+              </button>
+              <button aria-label="Executive Builder" className={`nav-item ${activeTab === 'agenda' ? 'active' : ''}`} onClick={() => handleTabChange('agenda')}>
+                <span className="nav-icon">🗣️</span>
+                <span className="label">Executive Builder</span>
+              </button>
+              <button aria-label="About Product" className={`nav-item ${activeTab === 'about' ? 'active' : ''}`} onClick={() => handleTabChange('about')}>
+                <span className="nav-icon">ℹ️</span>
+                <span className="label">About Product</span>
+              </button>
+            </div>
+            <div className="sidebar-peek-backdrop" onClick={() => setIsSidebarPeek(false)} aria-hidden="true"></div>
+          </div>
+        )}
+
         {/* Main Content Area */}
         <main className="main-content">
           <div className="header-top">
